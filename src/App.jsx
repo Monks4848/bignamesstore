@@ -695,7 +695,7 @@ export default function App() {
  <div className="pcard-pricing">
  <div className="pcard-old">{p.old ? fmtP(p.old) : ''}</div>
  <div className="pcard-price">{fmtP(p.price)}</div>
-<div className="pcard-save">{p.old && p.price ? Save ${Math.round((1-p.price/p.old)*100)}% : ''}</div>
+<div className="pcard-save">{p.old && p.price ? 'Save ' + Math.round((1-p.price/p.old)*100) + '%' : ''}</div>
  </div>
  <button className="add-btn" onClick={e=>addToCart(p,e)} title="Add to cart">+</button>
  </div>
