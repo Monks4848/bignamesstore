@@ -152,7 +152,7 @@ const css = `
  .pb-hot{background:#EF5350;color:white}
  .pb-bulk{background:var(--green);color:white}
  .pcard-img{height:175px;display:flex;align-items:center;justify-content:center;font-size:62px;
- background:linear-gradient(135deg,var(--mist),var(--fog))}
+ background:linear-gradient(135deg,var(--mist),var(--fog));overflow:hidden;position:relative}
  .pcard-body{padding:15px}
  .pcard-vendor{font-size:11px;color:var(--slate);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
  .pcard-name{font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;color:var(--ink);margin-bottom:6px;line-height:1.3}
@@ -364,22 +364,54 @@ const css = `
 `;
 // ── DATA ─────────────────────────────────────────────────────────────────────
 const PRODUCTS = [
- {id:1,name:'iPhone 15 Pro Max',cat:'iphone',cond:'new',price:649,old:999,emoji:' ',specs:['256GB','Titanium','5G'],vendor:'ShenZhen TechSource',rating:4.8,reviews:312,badge:'hot'},
- {id:2,name:'iPhone 14 Pro',cat:'iphone',cond:'new',price:449,old:799,emoji:' ',specs:['128GB','Deep Purple','5G'],vendor:'GlobalApple Co.',rating:4.7,reviews:208,badge:'new'},
- {id:3,name:'iPhone 13 Pre-Owned',cat:'iphone',cond:'used',price:189,old:349,emoji:' ',specs:['128GB','Grade A','Face ID'],vendor:'RenewTech HK',rating:4.5,reviews:145,badge:'used'},
- {id:4,name:'iPhone 15 (Sealed)',cat:'iphone',cond:'new',price:549,old:799,emoji:' ',specs:['128GB','Pink','USB-C'],vendor:'ShenZhen TechSource',rating:4.9,reviews:421,badge:'hot'},
- {id:5,name:'MacBook Air M2',cat:'mac',cond:'new',price:799,old:1199,emoji:' ',specs:['8GB','256GB SSD','13"'],vendor:'MacWorld Direct',rating:4.9,reviews:187,badge:'new'},
- {id:6,name:'MacBook Pro M3 14"',cat:'mac',cond:'new',price:1199,old:1599,emoji:' ',specs:['16GB','512GB','ProMotion'],vendor:'MacWorld Direct',rating:4.8,reviews:95,badge:'new'},
- {id:7,name:'MacBook Air M1 Used',cat:'mac',cond:'used',price:489,old:899,emoji:' ',specs:['8GB','256GB','Grade B+'],vendor:'RenewTech HK',rating:4.4,reviews:76,badge:'used'},
- {id:8,name:'iPad Pro 12.9" M2',cat:'ipad',cond:'new',price:699,old:1099,emoji:' ',specs:['256GB','5G','Liquid Retina'],vendor:'TabletHub CN',rating:4.7,reviews:143,badge:'new'},
- {id:9,name:'iPad Air 5th Gen',cat:'ipad',cond:'new',price:349,old:599,emoji:' ',specs:['64GB','WiFi','Touch ID'],vendor:'TabletHub CN',rating:4.6,reviews:211,badge:'new'},
- {id:10,name:'iPad Mini 6 Used',cat:'ipad',cond:'used',price:199,old:399,emoji:' ',specs:['64GB','Grade A','USB-C'],vendor:'RenewTech HK',rating:4.3,reviews:89,badge:'used'},
- {id:11,name:'AirPods Pro 2nd Gen',cat:'audio',cond:'new',price:149,old:249,emoji:' ',specs:['ANC','MagSafe','USB-C'],vendor:'SoundTech Wholesale',rating:4.8,reviews:534,badge:'hot'},
- {id:12,name:'AirPods 3rd Gen',cat:'audio',cond:'new',price:89,old:169,emoji:' ',specs:['Spatial Audio','IPX4','Lightning'],vendor:'SoundTech Wholesale',rating:4.6,reviews:278,badge:'new'},
- {id:13,name:'AirPods Max Used',cat:'audio',cond:'used',price:249,old:549,emoji:' ',specs:['Grade A','Silver','ANC'],vendor:'RenewTech HK',rating:4.5,reviews:62,badge:'used'},
- {id:14,name:'Apple Watch Series 9',cat:'watch',cond:'new',price:249,old:399,emoji:' ',specs:['45mm','GPS','Always-On'],vendor:'WearTech Direct',rating:4.7,reviews:198,badge:'new'},
- {id:15,name:'Apple Watch Ultra 2',cat:'watch',cond:'new',price:649,old:799,emoji:' ',specs:['49mm','Titanium','GPS+Cell'],vendor:'WearTech Direct',rating:4.9,reviews:87,badge:'hot'},
- {id:16,name:'iPhone 12 Bulk x10',cat:'iphone',cond:'used',price:1290,old:1990,emoji:' ',specs:['10 Units','Mixed','Grade A/B'],vendor:'GlobalApple Co.',rating:4.6,reviews:44,badge:'bulk'},
+ {id:1,name:'iPhone 15 Pro Max',cat:'iphone',cond:'new',price:649,old:999,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['256GB','Titanium','5G'],vendor:'ShenZhen TechSource',rating:4.8,reviews:312,badge:'hot'},
+ {id:2,name:'iPhone 14 Pro',cat:'iphone',cond:'new',price:449,old:799,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-14-pro-finish-select-202209-6-7inch-deeppurple?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['128GB','Deep Purple','5G'],vendor:'GlobalApple Co.',rating:4.7,reviews:208,badge:'new'},
+ {id:3,name:'iPhone 13 Pre-Owned',cat:'iphone',cond:'used',price:189,old:349,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-13-finish-select-2021?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['128GB','Grade A','Face ID'],vendor:'RenewTech HK',rating:4.5,reviews:145,badge:'used'},
+ {id:4,name:'iPhone 15 (Sealed)',cat:'iphone',cond:'new',price:549,old:799,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-finish-select-202309-6-1inch-pink?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['128GB','Pink','USB-C'],vendor:'ShenZhen TechSource',rating:4.9,reviews:421,badge:'hot'},
+ {id:5,name:'MacBook Air M2',cat:'mac',cond:'new',price:799,old:1199,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-midnight-select-20220606?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['8GB','256GB SSD','13"'],vendor:'MacWorld Direct',rating:4.9,reviews:187,badge:'new'},
+ {id:6,name:'MacBook Pro M3 14"',cat:'mac',cond:'new',price:1199,old:1599,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp14-spacegray-select-202310?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['16GB','512GB','ProMotion'],vendor:'MacWorld Direct',rating:4.8,reviews:95,badge:'new'},
+ {id:7,name:'MacBook Air M1 Used',cat:'mac',cond:'used',price:489,old:899,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-gold-select-201810?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['8GB','256GB','Grade B+'],vendor:'RenewTech HK',rating:4.4,reviews:76,badge:'used'},
+ {id:8,name:'iPad Pro 12.9" M2',cat:'ipad',cond:'new',price:699,old:1099,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-pro-13-select-wifi-spacegray-202210?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['256GB','5G','Liquid Retina'],vendor:'TabletHub CN',rating:4.7,reviews:143,badge:'new'},
+ {id:9,name:'iPad Air 5th Gen',cat:'ipad',cond:'new',price:349,old:599,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-select-wifi-blue-202203?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['64GB','WiFi','Touch ID'],vendor:'TabletHub CN',rating:4.6,reviews:211,badge:'new'},
+ {id:10,name:'iPad Mini 6 Used',cat:'ipad',cond:'used',price:199,old:399,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-mini-select-wifi-purple-202109?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['64GB','Grade A','USB-C'],vendor:'RenewTech HK',rating:4.3,reviews:89,badge:'used'},
+ {id:11,name:'AirPods Pro 2nd Gen',cat:'audio',cond:'new',price:149,old:249,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['ANC','MagSafe','USB-C'],vendor:'SoundTech Wholesale',rating:4.8,reviews:534,badge:'hot'},
+ {id:12,name:'AirPods 3rd Gen',cat:'audio',cond:'new',price:89,old:169,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MME73?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['Spatial Audio','IPX4'],vendor:'SoundTech Wholesale',rating:4.6,reviews:278,badge:'new'},
+ {id:13,name:'AirPods Max Used',cat:'audio',cond:'used',price:249,old:549,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-max-select-202011_FMT_WHH?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['Grade A','Silver','ANC'],vendor:'RenewTech HK',rating:4.5,reviews:62,badge:'used'},
+ {id:14,name:'Apple Watch Series 9',cat:'watch',cond:'new',price:249,old:399,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-s9-45-alum-midnight-nc-s9_VW_34FR+watch-face-45-alum-midnight-s9_VW_34FR?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['45mm','GPS','Always-On'],vendor:'WearTech Direct',rating:4.7,reviews:198,badge:'new'},
+ {id:15,name:'Apple Watch Ultra 2',cat:'watch',cond:'new',price:649,old:799,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-ultra2-49-titanium-trail-green-alpine-large_VW_34FR?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['49mm','Titanium','GPS+Cell'],vendor:'WearTech Direct',rating:4.9,reviews:87,badge:'hot'},
+ {id:16,name:'iPhone 12 Bulk x10',cat:'iphone',cond:'used',price:1290,old:1990,
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-black-select-2020?wid=400&hei=400&fmt=jpeg&qlt=95',
+ emoji:' ',specs:['10 Units','Mixed','Grade A/B'],vendor:'GlobalApple Co.',rating:4.6,reviews:44,badge:'bulk'},
 ];
 const SUPPLIERS = [
  {name:'ShenZhen TechSource',loc:'Shenzhen, China ',emoji:' ',verified:true,products:320,rating:4.9,ship:'3–5 days',tags:['iPhones','iPads','MacBooks'],synced:true,lastSync:'2 mins ago',syncCount:320},
@@ -392,10 +424,14 @@ const SUPPLIERS = [
 const RATES = {USD:1,GBP:0.79,EUR:0.92,GHS:15.2,NGN:1560,AED:3.67,CAD:1.36,AUD:1.54,ZAR:18.6,INR:83.1};
 const SYMS = {USD:'$',GBP:'£',EUR:'€',GHS:'₵',NGN:'₦',AED:'AED ',CAD:'CA$',AUD:'A$',ZAR:'R',INR:'₹'};
 const HERO_CYCLE = [
- {emoji:' ',name:'iPhone 15 Pro',old:'$999',price:'$549'},
- {emoji:' ',name:'MacBook Air M2',old:'$1,199',price:'$799'},
- {emoji:' ',name:'AirPods Pro 2',old:'$249',price:'$149'},
- {emoji:' ',name:'Apple Watch Ultra',old:'$799',price:'$649'},
+ {emoji:' ',name:'iPhone 15 Pro',old:'$999',price:'$549',
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-15-pro-finish-select-202309-6-7inch-naturaltitanium?wid=300&hei=300&fmt=jpeg&qlt=95'},
+ {emoji:' ',name:'MacBook Air M2',old:'$1,199',price:'$799',
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/macbook-air-midnight-select-20220606?wid=300&hei=300&fmt=jpeg&qlt=95'},
+ {emoji:' ',name:'AirPods Pro 2',old:'$249',price:'$149',
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83?wid=300&hei=300&fmt=jpeg&qlt=95'},
+ {emoji:' ',name:'Apple Watch Ultra',old:'$799',price:'$649',
+ img:'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-ultra2-49-titanium-trail-green-alpine-large_VW_34FR?wid=300&hei=300&fmt=jpeg&qlt=95'},
 ];
 // ── APP ──────────────────────────────────────────────────────────────────────
 export default function App() {
@@ -596,7 +632,7 @@ export default function App() {
  <div className="device-frame">
  <div className="device-notch"/>
  <div className="device-product" style={{opacity:heroFade?1:0,transition:'opacity .3s'}}>
- <span className="dp-emoji">{h.emoji}</span>
+ <span className="dp-emoji" style={{fontSize:'58px',display:'block'}}>{h.emoji}</span>
  <div className="dp-name">{h.name}</div>
  <div className="dp-old">{h.old}</div>
  <div className="dp-price">{h.price}</div>
@@ -682,7 +718,15 @@ export default function App() {
  <div className={`pcard-badge pb-${p.badge}`}>
  {p.badge==='hot'?' Hot':p.badge==='new'?'✦ New':p.badge==='used'?'♻ Used':' Bulk'}
  </div>
- <div className="pcard-img">{p.emoji}</div>
+ <div className="pcard-img" style={{padding:'0',overflow:'hidden',background:'white'}}>
+ {p.img ? (
+ <img src={p.img} alt={p.name}
+ style={{width:'100%',height:'100%',objectFit:'contain',padding:'12px'}}
+ onError={e=>{e.target.style.display='none';e.target.nextSibling.style.display='flex';}}
+ />
+ ) : null}
+ <div style={{display:p.img?'none':'flex',alignItems:'center',justifyContent:'center',width:'100%',height:'100%',fontSize:'62px'}}>{p.emoji}</div>
+ </div>
  <div className="pcard-body">
  <div className="pcard-vendor">{p.vendor}</div>
  <div className="pcard-name">{p.name}</div>
@@ -693,9 +737,9 @@ export default function App() {
  <div className="pcard-specs">{p.specs.map(s=><span key={s} className="spec">{s}</span>)}</div>
  <div className="pcard-foot">
  <div className="pcard-pricing">
- <div className="pcard-old">{p.old ? fmtP(p.old) : ''}</div>
+ <div className="pcard-old">{fmtP(p.old)}</div>
  <div className="pcard-price">{fmtP(p.price)}</div>
-<div className="pcard-save">{p.old && p.price ? 'Save ' + Math.round((1-p.price/p.old)*100) + '%' : ''}</div>
+ <div className="pcard-save">Save {Math.round((1-p.price/p.old)*100)}%</div>
  </div>
  <button className="add-btn" onClick={e=>addToCart(p,e)} title="Add to cart">+</button>
  </div>
